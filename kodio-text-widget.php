@@ -3,7 +3,7 @@
  * Plugin Name: Kodio Text Widget
  * Plugin URI: http://blueos.in/
  * Description: This plugin creates a cool, highly customisable text widget that also serves as a light weight call to action element. Also includes the ability to use <a href="https://fortawesome.github.io/Font-Awesome/">Fontawesome</a> icons as widget icon.
- * Version: 1.8.3
+ * Version: 1.8.4
  * Author: Mithun Sridharan
  * Author URI: http://jixta.wordpress.com
  * Date : 18. Dec 2015
@@ -13,25 +13,27 @@
 defined('ABSPATH') or die("Cannot access pages directly.");
 
 	class Kodio_Text_Widget extends WP_Widget {
+		//Some variables required by the widget
 		var $folder = '';
 		var $corevars;
 
+		//The constructor
 		function Kodio_Text_Widget() {
 			$this->folder = dirname($plugin);
 			parent::WP_Widget('Kodio_Text_Widget', 'Kodio Text Widget');
 			add_action('init', array(&$this, 'add_styles'));
-			$this->corevars = kodio_text_widget_defaults();
-			$corevars = kodio_text_widget_defaults();
+			$this->corevars = kodio_text_widget_defaults(); //Get the widget's defaults
 		}
 
+		//Styles required by the widget frontend
 		function add_styles(){
 			wp_register_style( 'kodio-text-widget-css', plugins_url( 'kodio-text-widget/css/style.css' ) );
 			wp_register_style( 'kodio-text-widget-font-awesome', plugins_url( 'kodio-text-widget/fonts/font-awesome/css/font-awesome.min.css' ) );
 			wp_enqueue_style( 'kodio-text-widget-css' );
 			wp_enqueue_style( 'kodio-text-widget-font-awesome' );
-			wp_enqueue_style( 'dashicons' );
 		}
 
+		//Build and display the widget
 		function widget($args, $instance) {
 			extract($args);
 
@@ -51,6 +53,7 @@ defined('ABSPATH') or die("Cannot access pages directly.");
 			echo $before_widget;
 			echo ( $widget_title_show && $widget_title_text ) ? $before_title . $widget_title_text . $after_title : '';
 
+			//Not for the faint of heart. Build the variables dynamically and populate them with values programatically
 			foreach ($elements as $element) {
 					foreach ($spaces as $space) {
 						${$element . $usc . $space . $usc . $style } = kodio_get_spacing_styles($instance, $element, $space);
@@ -60,6 +63,7 @@ defined('ABSPATH') or die("Cannot access pages directly.");
 					${$element . $usc . $style } = ${$element . $usc . 'padding' . $usc . $style } . ${$element . $usc . 'margin' . $usc . $style } . ${$element . $usc . $border . $usc . $style } . ${$element . $usc . 'text' . $usc . $style };
 			}
 
+			//Now, display the widget
 			echo "<div style ='$widget_style" . " ' class='kodio-text-widget'>";
 				echo ( $icon ) ? '<div class="kodio-text-widget-icon" style="' . $icon_style . '"><span class="' . $icon . '"></span></span></div>': '';
 				echo ($image_show && $image) ? "<img style ='$image_style' src='$image' >" : '';
@@ -69,6 +73,7 @@ defined('ABSPATH') or die("Cannot access pages directly.");
 			echo $after_widget;
 		}
 
+		//Iterate the list of widget variables and update them with changed values
 		function update($new, $old) {
 			$instance = $old;
 			foreach ($this->corevars as $var => $param) {
@@ -77,6 +82,7 @@ defined('ABSPATH') or die("Cannot access pages directly.");
 			return $instance;
 		}
 
+		//The widget's backend form
 		function form($instance) {
 		$defaults = array();
 
@@ -86,6 +92,7 @@ defined('ABSPATH') or die("Cannot access pages directly.");
 
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
+		//Based on the type of the UI element, display the backend input element differently
 		foreach ($this->corevars as $var => $param) {
 
 			if($param['type'] === 'text') {?>
@@ -143,6 +150,7 @@ defined('ABSPATH') or die("Cannot access pages directly.");
 
 add_action('widgets_init', create_function('', 'return register_widget("Kodio_Text_Widget");'));
 
+//Styles and scripts required by the widget's backend form
 function kodio_enqueue_admin_scripts($hook) {
    	wp_enqueue_style( 'wp-color-picker' );
 	wp_enqueue_script( 'wp-color-picker');
@@ -155,6 +163,7 @@ function kodio_enqueue_admin_scripts($hook) {
 
 add_action( 'admin_enqueue_scripts', 'kodio_enqueue_admin_scripts' );
 
+//Some includes required by the widget
 include_once(dirname(__FILE__) . "/includes/variables.php");
 include_once(dirname(__FILE__) . "/includes/functions.php");
 ?>
