@@ -1,0 +1,7 @@
+.custom_media_image {
+    display: block;
+    margin: 15px auto;
+    border:1px solid #eeeeee;
+    padding: 5px;
+    max-width: 375px;
+}

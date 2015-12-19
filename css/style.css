@@ -1,0 +1,11 @@
+.kodio-text-widget {
+    overflow: auto;
+}
+.kodio-text-widget-icon i {
+    display: block;
+}
+.kodio-text-widget-button {
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+}
