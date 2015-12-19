@@ -155,10 +155,10 @@ function kodio_enqueue_admin_scripts($hook) {
    	wp_enqueue_style( 'wp-color-picker' );
 	wp_enqueue_script( 'wp-color-picker');
 	wp_enqueue_media();
-    wp_register_script('kodio-admin-scripts', plugins_url('/js/kodio-admin.js', __FILE__ ), array( 'wp-color-picker' ));
-    wp_register_style('kodio-admin-styles', plugins_url('/css/kodio-admin.css', __FILE__ ));
-   	wp_enqueue_script( 'kodio-admin-scripts' );
-   	wp_enqueue_style( 'kodio-admin-styles' );
+	wp_register_script('kodio-admin-scripts', plugins_url('/js/kodio-admin.js', __FILE__ ), array( 'wp-color-picker' ));
+	wp_register_style('kodio-admin-styles', plugins_url('/css/kodio-admin.css', __FILE__ ));
+	wp_enqueue_script( 'kodio-admin-scripts' );
+	wp_enqueue_style( 'kodio-admin-styles' );
 }
 
 add_action( 'admin_enqueue_scripts', 'kodio_enqueue_admin_scripts' );
