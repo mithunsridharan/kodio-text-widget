@@ -109,7 +109,7 @@ defined('ABSPATH') or die("Cannot access pages directly.");
 				<p>
 					<label for="<?php echo $this->get_field_id($var); ?>"><?php echo $param['desc']; ?></label>
 					<input class="checkbox" id="<?php echo $this->get_field_id($var); ?>" name="<?php echo $this->get_field_name($var); ?>" type="checkbox" <?php checked( (bool) $instance[$var], true ); ?> />
-    			</p>
+				</p>
 			<?php } else if($param['type'] === 'textarea') { ?>
 				<p>
 				  	<label for="<?php echo $this->get_field_id($var); ?>"><?php echo $param['desc']; ?></label>
@@ -137,11 +137,11 @@ defined('ABSPATH') or die("Cannot access pages directly.");
 			  	</p>
 			<?php } else  if($param['type'] === 'image') { ?>
 			  	<p>
-		    	    <?php echo ( ($instance[$var] ) ? "<img class=\"custom_media_image\" src=\"$instance[$var]\"/>" : ''); ?>
-        			<input class="widefat custom_media_url" id="<?php echo $this->get_field_id($var); ?>" name="<?php echo $this->get_field_name($var); ?>" type="text" value="<?php echo $instance[$var]; ?>">
+					<?php echo ( ($instance[$var] ) ? "<img class=\"custom_media_image\" src=\"$instance[$var]\"/>" : ''); ?>
+					<input class="widefat custom_media_url" id="<?php echo $this->get_field_id($var); ?>" name="<?php echo $this->get_field_name($var); ?>" type="text" value="<?php echo $instance[$var]; ?>">
 			  	</p>
 			  	<p>
-			        <input class="button kodio-image-upload-class" id="kodio-image-upload-id" type="button" value="<?php echo 'Upload Image'; ?>"/>
+					<input class="button kodio-image-upload-class" id="kodio-image-upload-id" type="button" value="<?php echo 'Upload Image'; ?>"/>
 			  	</p>
 			<?php }
 		}
